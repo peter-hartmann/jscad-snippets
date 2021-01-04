@@ -13,8 +13,8 @@ function getParameterDefinitions() {
 function armFactory(len, col) {
     var arm = color(col, cube({size: [1,2,len], center:[true,true,false]}));
     // connector args are: connection point, shaft direction, shaft zero orientation
-    arm.properties.beg = new CSG.Connector([-0.5, 0, 1], [1, 0, 0], [0, 0, 1]);
-    arm.properties.end = new CSG.Connector([0.5, 0, len-1], [1, 0, 0], [0, 0, 1]);
+    arm.properties.beg = new CSG.Connector([-0.5, 0,     1], [1, 0, 0], [0, 0, 1]);
+    arm.properties.end = new CSG.Connector([ 0.5, 0, len-1], [1, 0, 0], [0, 0, 1]);
     return arm;
 }
 
