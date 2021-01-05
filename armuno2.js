@@ -62,7 +62,7 @@ function main(params) {
     var servo2 = armFactory(4, 'hotpink', params);
     var arm1a = armFactory(arm1_gap, 'green', params, 0, -1);
     var arm1b = armFactory(arm1_l, 'lightblue', params, 0, 1);
-    var arm2 = armFactory(arm2_l+arm1_gap, 'red', params, 0, 1);
+    var arm2 = armFactory(arm2_l+arm1_gap-params.wideness, 'red', params, 0, 1);
     // connect the arms at the given angle
     arm1a = connectTo(arm1a, servo2, 90+arm2_a);
     arm1b = connectTo(arm1b, arm1a, 90-arm1_a+arm2_a);
