@@ -1,10 +1,10 @@
 function getParameterDefinitions() {
   return [
-    { name: 'arm1_a', type: 'float', initial:  0, caption: "arm1 angle:", min: -360, max: 360, step: 10 },
-    { name: 'arm2_a', type: 'float', initial:  0, caption: "arm2 angle:", min: -360, max: 360, step: 10 },
+    { name: 'arm1_a', type: 'float', initial:  10, caption: "arm1 angle:", min: -360, max: 360, step: 10 },
+    { name: 'arm2_a', type: 'float', initial:  -10, caption: "arm2 angle:", min: -360, max: 360, step: 10 },
     { name: 'arm1_l', type: 'float', initial: 15, caption: "arm1 lenght:", min: 1,    max: 20, step: 1 },
     { name: 'arm2_l', type: 'float', initial: 15, caption: "arm2 length:", min: 1,    max: 20, step: 1 },
-    { name: 'thickness', type: 'float', initial: 1, caption: "thickness:", min: 0.1, max: 2, step: 0.1 },
+    { name: 'thickness', type: 'float', initial: 0.5, caption: "thickness:", min: 0.1, max: 2, step: 0.1 },
     { name: 'wideness', type: 'float', initial: 1, caption: "wideness:", min: 0.1, max: 4, step: 0.1 },
     { name: 'arm1_gap', type: 'float', initial: 5, caption: "arm1 gap:", min: 0.5, max: 8, step: 0.5 },
     { name: 'arm2_gap', type: 'float', initial: 4, caption: "arm2 gap:", min: 0.5, max: 8, step: 0.5 },
@@ -15,7 +15,8 @@ function getParameterDefinitions() {
 }
 
 function armFactory(len, col, params, armLayer=0, begConnectorLayer=-1, endConnectorLayer=0) {
-    var arm = cube({size: [params.thickness,params.wideness,len], center:[true,true,false]});
+    var radius = Math.min(params.thickness, params.wideness, len) / 8;
+    var arm = cube({radius, round: true, size: [params.thickness,params.wideness,len], center:[true,true,false]});
     arm = color(col, arm);
     arm = translate([armLayer*params.thickness,0,0], arm);
     // connector args are: connection point, shaft direction, shaft zero orientation
