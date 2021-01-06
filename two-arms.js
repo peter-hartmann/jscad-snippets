@@ -1,12 +1,9 @@
-var rot_range = 40;
-
 function getParameterDefinitions() {
-  var rot = 40 / 2;
   return [
+    { name: 'arm1_a', type: 'float', initial:  0, caption: "arm1 rotate:", min: -360, max: 360, step: 1 },
+    { name: 'arm2_a', type: 'float', initial:  0, caption: "arm2 rotate:", min: -360, max: 360, step: 1 },
     { name: 'arm1_l', type: 'float', initial: 10, caption: "arm1 lenght:", min: 1,    max: 20, step: 1 },
-    { name: 'arm1_r', type: 'float', initial:  0, caption: "arm1 rotate:", min: -rot, max: rot, step: 1 },
     { name: 'arm2_l', type: 'float', initial: 10, caption: "arm2 length:", min: 1,    max: 20, step: 1 },
-    { name: 'arm2_r', type: 'float', initial:  0, caption: "arm2 rotate:", min: -rot, max: rot, step: 1 },
   ];
 }
 
@@ -28,7 +25,7 @@ function connectTo(end, beg, angle) {
 }
 
 function main(params) {
-    var {arm1_l,arm1_r,arm2_l,arm2_r} = params;
+    var {arm1_l,arm1_a,arm2_l,arm2_a} = params;
 
     // create arms with connectors at each end, arm0 is the base plate
     var arm0 = armFactory(4, 'black');
@@ -36,8 +33,8 @@ function main(params) {
     var arm2 = armFactory(arm2_l, 'red');
 
     // connect the arms at the given angle
-    arm1 = connectTo(arm0, arm1, arm1_r/rot_range*360);
-    arm2 = connectTo(arm1, arm2, arm2_r/rot_range*360);
+    arm1 = connectTo(arm0, arm1, arm1_a);
+    arm2 = connectTo(arm1, arm2, arm2_a);
 
     return [
         arm0,
